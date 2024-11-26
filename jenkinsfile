@@ -12,6 +12,7 @@ pipeline {
       steps {
           sshagent(['jenkins-aws']) {
             sh 'ssh -o StrictHostKeyChecking=no ec2-user@${Ec2}'
+            sh 'pwd' 
             sh 'aws --version'
             sh 'ls -lt'
         }
