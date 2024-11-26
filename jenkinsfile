@@ -4,7 +4,6 @@ pipeline {
     //DOCKER_CREDENTIALS = credentials('jenkins-token')
     //dockerTag='zomaimage'
     //imageName='web'
-    Ec2 = '3.94.203.232'
   }
 
   stages {
