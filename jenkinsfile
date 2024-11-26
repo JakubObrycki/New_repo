@@ -4,12 +4,14 @@ pipeline {
     //DOCKER_CREDENTIALS = credentials('jenkins-token')
     //dockerTag='zomaimage'
     //imageName='web'
+    Ec2 = '3.94.203.232'
   }
 
   stages {
     stage ('Integration with EC2'){
       steps {
           sshagent(['jenkins-aws']) {
+            sh 'ssh -o StrictHostKeyChecking=no ec2-user@${Ec2}'
             sh 'aws --version'
             sh 'ls -lt'
         }
