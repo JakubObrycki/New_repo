@@ -1,6 +1,7 @@
 pipeline {
   agent any
   environment {
+    AWS_DEFAULT_REGION = 'us-east-1'
     DOCKER_CREDENTIALS = credentials('jenkins-token')
     dockerTag='zomaimage'
     imageName='web'
