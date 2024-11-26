@@ -1,0 +1,18 @@
+pipeline {
+  agent any
+  environment {
+    DOCKER_CREDENTIALS = credentials('jenkins-token')
+    dockerTag='zomaimage'
+    imageName='web'
+  }
+
+  stages {
+    stage ('Integration with EC2'){
+      steps {
+        withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'fafto-aws-credential', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+            sh 'ls -lt'
+        }
+      }
+    }
+  }
+}
