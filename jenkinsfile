@@ -1,9 +1,9 @@
 pipeline {
   agent any
   environment {
-    DOCKER_CREDENTIALS = credentials('jenkins-token')
-    dockerTag='zomaimage'
-    imageName='web'
+    //DOCKER_CREDENTIALS = credentials('jenkins-token')
+    //dockerTag='zomaimage'
+    //imageName='web'
   }
 
   stages {
