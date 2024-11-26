@@ -9,7 +9,8 @@ pipeline {
   stages {
     stage ('Integration with EC2'){
       steps {
-        withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'fafto-aws-credential', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+          sshagent(['jenkins-aws']) {
+            sh 'aws --version'
             sh 'ls -lt'
         }
       }
