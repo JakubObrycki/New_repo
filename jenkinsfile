@@ -1,22 +1,24 @@
 pipeline {
   agent any
   environment {
-    //DOCKER_CREDENTIALS = credentials('jenkins-token')
-    //dockerTag='zomaimage'
-    //imageName='web'
-    Ec2 = ''
+    DOCKER_CREDENTIALS = credentials('jenkins-token')
+    dockerTag='zomaimage'
+    imageName='web'
   }
 
   stages {
+    stage ('Git checkout') {
+      steps {
+        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins-token', url: 'https://github.com/JakubObrycki/Docker_on_Ec2.git']])
+      }
+    }
+    
     stage ('Integration with EC2'){
       steps {
-          sshagent(['jenkins-aws']) {
-            sh 'ssh -o StrictHostKeyChecking=no ec2-user@${Ec2}'
-            sh 'pwd' 
-            sh 'aws --version'
-            sh 'ls -lt'
+        withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'My_ec2', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+           sh 'aws --version'// some block
+          }
         }
       }
     }
   }
-}
